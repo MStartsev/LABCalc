@@ -1,0 +1,463 @@
+.calculator {
+  min-height: 100vh;
+  background-color: var(--color-bg-dark);
+  padding: var(--spacing-lg);
+  color: var(--color-text-white);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.header h2 {
+  margin: 0;
+  font-size: var(--font-size-xxl);
+  font-weight: 600;
+}
+
+.modeBtn {
+  background: var(--color-accent);
+  border: none;
+  color: var(--color-text-white);
+  font-size: var(--font-size-lg);
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  min-width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modeBtn:hover {
+  background-color: #2980b9;
+}
+
+.filtersRow {
+  display: flex;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background-color: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  align-items: center;
+}
+
+.componentFilter,
+.resultsFilter {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--color-text-white);
+}
+
+.componentFilter label,
+.resultsFilter label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.filterSelect {
+  background-color: var(--color-primary);
+  color: var(--color-text-white);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--border-radius-sm);
+  padding: 12px 8px;
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  min-width: 120px;
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.topResultsContainer {
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: var(--border-radius);
+  margin: var(--spacing-lg) 0;
+  padding: var(--spacing-md);
+}
+
+.topResultsTitle {
+  color: var(--color-text-white);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+.topResultItem {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.topResultItem:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.selectedResult {
+  background-color: rgba(52, 152, 219, 0.2) !important;
+  border-color: var(--color-accent) !important;
+}
+
+.resultHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xs);
+}
+
+.resultNumber {
+  font-weight: 600;
+  color: var(--color-accent);
+  font-size: var(--font-size-sm);
+}
+
+.componentCount {
+  background-color: var(--color-accent);
+  color: var(--color-text-white);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+}
+
+.resultData {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.resultMix {
+  color: var(--color-text-white);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.errorValue {
+  background-color: var(--color-danger) !important;
+  color: var(--color-text-white) !important;
+  animation: errorPulse 1s ease-in-out;
+}
+
+@keyframes errorPulse {
+  0% {
+    background-color: var(--color-danger);
+  }
+  50% {
+    background-color: #c0392b;
+  }
+  100% {
+    background-color: var(--color-danger);
+  }
+}
+
+/* Адаптивність для фільтрів */
+@media (max-width: 480px) {
+  .filtersRow {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: stretch;
+  }
+
+  .componentFilter,
+  .resultsFilter {
+    justify-content: space-between;
+  }
+
+  .filterSelect {
+    min-width: auto;
+    flex: 1;
+  }
+
+  .topResultItem {
+    padding: var(--spacing-xs);
+  }
+
+  .resultMix {
+    font-size: var(--font-size-xs);
+    line-height: 1.3;
+  }
+
+  .resultPercentages {
+    font-size: 10px;
+  }
+}
+
+.modeLabel {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-white);
+  text-align: center;
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.disabledBtn {
+  background-color: #6c757d;
+  color: var(--color-text-white);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+}
+
+/* Темна табличка керування */
+.controlTable {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing-xl);
+  overflow: hidden;
+}
+
+.backBtn {
+  background: none;
+  border: none;
+  color: var(--color-text-white);
+  font-size: 40px; /* збільшена стрілка */
+  cursor: pointer;
+  padding: var(--spacing-lg); /* збільшена область кліку */
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  min-width: 48px; /* мінімальна ширина для зручності */
+  min-height: 48px; /* мінімальна висота */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backBtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.glutenRow {
+  display: grid;
+  grid-template-columns: 40px 40px 80px 40px 60px 1fr;
+  align-items: center;
+  padding: var(--spacing-md);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  gap: var(--spacing-sm);
+  min-height: 80px;
+}
+
+.mixResult {
+  display: flex;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-lg);
+  line-height: 1.3;
+  color: var(--color-text-white);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-left: var(--spacing-md);
+  padding-block: var(--spacing-sm);
+}
+
+.mixGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-md);
+}
+
+.mixItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 64px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius-sm);
+}
+
+.mixItem:last-child {
+  grid-column: span 2;
+  max-width: 50%;
+}
+
+.mixLabel {
+  font-weight: 600;
+  margin-right: var(--spacing-sm);
+}
+
+.mixValue {
+  font-weight: 500;
+  text-align: right;
+}
+
+/* Адаптивність */
+@media (max-width: 480px) {
+  .mixGrid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+  }
+
+  .mixItem:last-child {
+    grid-column: span 1;
+    max-width: 100%;
+  }
+
+  .mixItem {
+    padding: 4px 64px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
+
+.glutenLabel {
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-white);
+}
+
+.glutenValue {
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-white);
+  text-align: center;
+}
+
+.pitControlRow {
+  display: grid;
+  grid-template-columns: 40px 40px 80px 40px 1fr;
+  align-items: center;
+  padding: var(--spacing-md);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  gap: var(--spacing-sm);
+  min-height: 60px;
+}
+
+.pitControlRow:last-child {
+  border-bottom: none;
+}
+
+.pitId {
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-white);
+}
+
+.controlBtn {
+  background-color: var(--color-accent);
+  color: var(--color-text-white);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-lg);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.controlBtn:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.controlBtn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.percentageValue {
+  font-weight: 600;
+  font-size: var(--font-size-md);
+  color: var(--color-text-white);
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+}
+
+.percentageFixed {
+  font-weight: 600;
+  font-size: var(--font-size-md);
+  color: var(--color-text-white);
+  text-align: center;
+  grid-column: span 3;
+}
+
+.pitData {
+  font-size: var(--font-size-xs);
+  line-height: 1.3;
+  color: var(--color-text-white);
+  margin-left: var(--spacing-sm);
+}
+
+/* Блок результату суміші */
+.mixDisplay {
+  background-color: var(--color-bg-white);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-text);
+}
+
+.mixInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-md);
+}
+
+/* Сітка ям */
+.pitsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+}
+
+.pitContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+/* Адаптивність */
+@media (max-width: 480px) {
+  .calculator {
+    padding: var(--spacing-md);
+  }
+
+  .glutenRow {
+    grid-template-columns: 30px 30px 60px 30px 50px 1fr;
+    padding: var(--spacing-sm);
+  }
+
+  .pitControlRow {
+    grid-template-columns: 30px 30px 60px 30px 1fr;
+    padding: var(--spacing-sm);
+    min-height: 60px;
+  }
+
+  .controlBtn {
+    width: 28px;
+    height: 28px;
+    font-size: var(--font-size-md);
+  }
+
+  .pitData {
+    font-size: var(--font-size-xs);
+  }
+}

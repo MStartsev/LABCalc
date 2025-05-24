@@ -1,0 +1,56 @@
+.selectMode {
+  min-height: 100vh;
+  background-color: var(--color-bg-dark);
+  padding: var(--spacing-lg);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-text-white);
+  margin-bottom: var(--spacing-xl);
+}
+
+.header h2 {
+  margin: 0;
+  font-size: var(--font-size-xxl);
+  font-weight: 600;
+}
+
+.backBtn {
+  background: none;
+  border: none;
+  color: var(--color-text-white);
+  font-size: 40px;
+  cursor: pointer;
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  min-width: 48px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backBtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.pitsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+}
+
+/* Адаптивність */
+@media (max-width: 480px) {
+  .selectMode {
+    padding: var(--spacing-md);
+  }
+
+  .pitsGrid {
+    gap: var(--spacing-md);
+  }
+}

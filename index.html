@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Калькулятор суміші зерна для лабораторії"
+    />
+    <meta name="theme-color" content="#2C3E50" />
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Preconnect для оптимізації -->
+    <link rel="preconnect" href="https://script.google.com" />
+
+    <title>LAB Calc - Калькулятор суміші зерна</title>
+
+    <style>
+      /* Початковий стиль для запобігання FOUC */
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #34495e;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+      }
+
+      .initial-loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: white;
+        font-size: 18px;
+      }
+
+      .loading-spinner {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #bdc3c7;
+        border-radius: 50%;
+        border-top-color: #3498db;
+        animation: spin 1s linear infinite;
+        margin-right: 12px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="initial-loading">
+        <div class="loading-spinner"></div>
+        Завантаження...
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.jsx"></script>
+
+    <noscript>
+      <div
+        style="
+          text-align: center;
+          padding: 50px;
+          font-family: Arial, sans-serif;
+        "
+      >
+        <h2>JavaScript вимкнено</h2>
+        <p>
+          Для роботи додатка необхідно увімкнути JavaScript у вашому браузері.
+        </p>
+      </div>
+    </noscript>
+  </body>
+</html>

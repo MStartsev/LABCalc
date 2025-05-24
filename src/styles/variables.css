@@ -1,0 +1,57 @@
+:root {
+  /* Кольори силосів */
+  --color-silo-1: #fbe393;
+  --color-silo-2: #9cfb93;
+  --color-silo-3-high: #9cfb93;
+  --color-silo-3-low: #fbe393;
+  --color-empty: #b0b0b0;
+
+  /* Основні кольори */
+  --color-primary: #2c3e50;
+  --color-secondary: #34495e;
+  --color-accent: #3498db;
+  --color-success: #27ae60;
+  --color-danger: #e74c3c;
+  --color-warning: #f39c12;
+
+  /* Текст */
+  --color-text: #2c3e50;
+  --color-text-light: #7f8c8d;
+  --color-text-white: #ffffff;
+
+  /* Фон */
+  --color-bg: #ecf0f1;
+  --color-bg-white: #ffffff;
+  --color-bg-dark: #34495e;
+
+  /* Межі */
+  --color-border: #bdc3c7;
+  --color-border-light: #e8e8e8;
+
+  /* Відступи */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-xxl: 32px;
+
+  /* Розміри шрифтів */
+  --font-size-xs: 10px;
+  --font-size-sm: 12px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-xxl: 20px;
+
+  /* Інші параметри */
+  --border-radius: 8px;
+  --border-radius-sm: 4px;
+  --border-radius-lg: 12px;
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+  /* Анімації */
+  --transition: 0.2s ease;
+  --transition-slow: 0.3s ease;
+}

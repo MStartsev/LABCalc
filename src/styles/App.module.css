@@ -1,0 +1,106 @@
+.app {
+  min-height: 100vh;
+  background-color: var(--color-bg-dark);
+  padding: var(--spacing-lg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-text-white);
+  margin-bottom: var(--spacing-xl);
+}
+
+.header h1 {
+  font-size: var(--font-size-xxl);
+  font-weight: 600;
+  margin: 0;
+}
+
+.editBtn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--color-text-white);
+  cursor: pointer;
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.editBtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.calculatorPreview {
+  background-color: var(--color-primary);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.glutenControls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  color: var(--color-text-white);
+  font-size: var(--font-size-lg);
+}
+
+.disabledControls {
+  opacity: 0.3;
+  color: var(--color-text-white);
+  width: 24px;
+  text-align: center;
+}
+
+.calcBtn {
+  background-color: var(--color-success);
+  color: var(--color-text-white);
+  border: none;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-md);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.calcBtn:hover {
+  background-color: #219a52;
+}
+
+.pitsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: var(--color-text-white);
+  font-size: var(--font-size-lg);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .app {
+    padding: var(--spacing-md);
+  }
+
+  .calculatorPreview {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .glutenControls {
+    font-size: var(--font-size-md);
+  }
+}
