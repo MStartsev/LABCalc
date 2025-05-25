@@ -1,0 +1,16 @@
+{
+    "name": "LAB Calc - Калькулятор суміші зерна",
+    "short_name": "LAB Calc",
+    "description": "Калькулятор для розрахунку оптимальної суміші зерна в лабораторії",
+    "start_url": "/LABCalc/",
+    "display": "standalone",
+    "background_color": "#34495E",
+    "theme_color": "#2C3E50",
+    "orientation": "portrait-primary",
+    "categories": [
+        "productivity",
+        "utilities"
+    ],
+    "lang": "uk",
+    "icons": []
+}
