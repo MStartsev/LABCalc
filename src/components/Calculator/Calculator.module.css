@@ -288,7 +288,7 @@
 
 .glutenRow {
   display: grid;
-  grid-template-columns: 40px 40px 80px 40px 60px 1fr;
+  grid-template-columns: 40px 40px 80px 120px 60px 1fr;
   align-items: center;
   padding: var(--spacing-md);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -485,7 +485,7 @@
   }
 
   .glutenRow {
-    grid-template-columns: 30px 30px 60px 30px 50px 1fr;
+    grid-template-columns: 32px 40px 60px 48px 50px 1fr;
     padding: var(--spacing-sm);
   }
 
