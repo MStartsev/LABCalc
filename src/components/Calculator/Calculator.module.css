@@ -82,6 +82,35 @@
   border-radius: var(--border-radius);
   margin: var(--spacing-lg) 0;
   padding: var(--spacing-md);
+  max-height: 400px;
+  overflow-y: auto;
+
+  /* Стилізація скролбару для Webkit браузерів */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
+}
+
+.topResultsContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.topResultsContainer::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.topResultsContainer::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  transition: var(--transition);
+}
+
+.topResultsContainer::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.topResultsContainer::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 .topResultsTitle {
@@ -141,7 +170,7 @@
 
 .resultMix {
   color: var(--color-text-white);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-lg);
   font-weight: 500;
 }
 
@@ -186,12 +215,19 @@
   }
 
   .resultMix {
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-md);
     line-height: 1.3;
   }
 
   .resultPercentages {
-    font-size: 10px;
+    font-size: var(--font-size-md);
+  }
+}
+
+@media (max-width: 380px) {
+  .resultMix {
+    font-size: var(--font-size-sm);
+    line-height: 1.3;
   }
 }
 
@@ -280,26 +316,34 @@
 
 .mixItem {
   display: flex;
-  justify-content: space-between;
+  gap: calc(64px + 1vw);
+  justify-content: flex-start;
   align-items: center;
-  padding: 4px 64px;
+  padding: 4px calc(64px + 2vw);
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: var(--border-radius-sm);
 }
 
 .mixItem:last-child {
   grid-column: span 2;
-  max-width: 50%;
+  max-width: calc(50% - 4px);
 }
 
 .mixLabel {
   font-weight: 600;
-  margin-right: var(--spacing-sm);
+  width: 36px;
 }
 
 .mixValue {
   font-weight: 500;
   text-align: right;
+}
+
+@media (max-width: 768px) {
+  .mixItem {
+    padding: 4px 10vw;
+    gap: 10vw;
+  }
 }
 
 /* Адаптивність */

@@ -139,7 +139,7 @@ const App = () => {
           className={styles.editBtn}
           aria-label="Редагувати ями"
         >
-          ✏️
+          📝
         </button>
       </div>
 

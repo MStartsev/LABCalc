@@ -11,8 +11,39 @@
   align-items: center;
   z-index: 1000;
   padding-block: 40px;
+  overflow-y: auto;
+
+  /* Стилізація скролбару для Webkit браузерів */
   scrollbar-width: thin;
-  overflow-y: scroll;
+  scrollbar-color: var(--color-bg-dark) rgba(11, 6, 61, 0.1);
+}
+
+.modalOverlay::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modalOverlay::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  background-color: color(--color-primary);
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+}
+
+.modalOverlay::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.modalOverlay::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.modalOverlay::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 .modal {
@@ -30,31 +61,6 @@
   scrollbar-width: thin;
 }
 
-.modalOverlay::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
-  background-color: color(--color-primary);
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  -ms-border-radius: 6px;
-  -o-border-radius: 6px;
-}
-
-.modalOverlay::-webkit-scrollbar {
-  scrollbar-width: thin;
-  background-color: color(--color-primary);
-}
-
-.modalOverlay::-webkit-scrollbar-thumb {
-  border-radius: 6px;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: color(--color-primary);
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  -ms-border-radius: 6px;
-  -o-border-radius: 6px;
-}
-
 .modalHeader {
   display: flex;
   justify-content: space-between;
@@ -64,8 +70,10 @@
 }
 
 .modalHeader h3 {
+  display: inline-block;
+  width: 64px;
   margin: 0;
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-xxl);
   font-weight: 600;
 }
 
@@ -73,11 +81,16 @@
   background: none;
   border: none;
   color: var(--color-text-white);
-  font-size: var(--font-size-xl);
+  font-size: 40px; /* збільшена стрілка */
   cursor: pointer;
-  padding: var(--spacing-sm);
+  padding: var(--spacing-lg); /* збільшена область кліку */
   border-radius: var(--border-radius);
   transition: var(--transition);
+  min-width: 48px; /* мінімальна ширина для зручності */
+  min-height: 48px; /* мінімальна висота */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .backBtn:hover {
@@ -164,10 +177,6 @@
 @media (max-width: 480px) {
   .modalOverlay {
     padding: var(--spacing-md);
-  }
-
-  .modal {
-    max-height: 95vh;
   }
 
   .modalHeader,

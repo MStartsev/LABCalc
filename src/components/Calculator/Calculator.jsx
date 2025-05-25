@@ -14,6 +14,7 @@ const Calculator = ({ selectedPits, onBack, allPits, onPitSelect }) => {
   const [componentFilter, setComponentFilter] = useState("best"); // Фільтр по кількості компонентів
   const [showTopResults, setShowTopResults] = useState(false); // Показувати топ 5 чи найкращий
   const [topResults, setTopResults] = useState([]); // Масив топ результатів
+  const [selectedResultIndex, setSelectedResultIndex] = useState(0); // Індекс вибраного результату
 
   useEffect(() => {
     const savedGluten = localStorage.getItem("labcalc_target_gluten");
@@ -28,6 +29,9 @@ const Calculator = ({ selectedPits, onBack, allPits, onPitSelect }) => {
   // Ефект що спрацьовує при зміні вибраних ям або режиму
   useEffect(() => {
     if (selectedPits.length === 1) {
+      if (showTopResults) {
+        setSelectedResultIndex(0);
+      }
       // Одна яма - завжди 100%
       setPercentages({ [selectedPits[0].id]: 100 });
       setMixData(selectedPits[0]);
@@ -43,7 +47,13 @@ const Calculator = ({ selectedPits, onBack, allPits, onPitSelect }) => {
         initializeManualMode();
       }
     }
-  }, [selectedPits, isAutoMode, componentFilter, savedTargetGluten]);
+  }, [
+    selectedPits,
+    isAutoMode,
+    componentFilter,
+    savedTargetGluten,
+    showTopResults,
+  ]);
 
   // Ініціалізація автоматичного режиму
   const initializeAutoMode = () => {
@@ -71,6 +81,7 @@ const Calculator = ({ selectedPits, onBack, allPits, onPitSelect }) => {
     ) {
       // Режим топ 5 - зберігаємо всі варіанти
       setTopResults(results.alternatives);
+      setSelectedResultIndex(0);
       setPercentages(results.alternatives[0].percentages);
       setMixData(results.alternatives[0].mixData);
     } else {
@@ -307,9 +318,9 @@ const Calculator = ({ selectedPits, onBack, allPits, onPitSelect }) => {
 
     // Якщо потрібно показати топ результати
     if (showTopResults) {
-      const top5 = bestCombinations.slice(0, 5);
-      console.log("Топ 5 результатів:");
-      top5.forEach((combo, index) => {
+      const top10 = bestCombinations.slice(0, 10);
+      console.log("Топ 10 результатів:");
+      top10.forEach((combo, index) => {
         console.log(
           `${index + 1}. ${
             combo.componentCount
@@ -323,8 +334,8 @@ const Calculator = ({ selectedPits, onBack, allPits, onPitSelect }) => {
       });
 
       return {
-        percentages: top5[0].percentages,
-        alternatives: top5,
+        percentages: top10[0].percentages,
+        alternatives: top10,
       };
     } else {
       const bestCombo = bestCombinations[0];
@@ -431,6 +442,7 @@ const Calculator = ({ selectedPits, onBack, allPits, onPitSelect }) => {
       results.alternatives.length > 0
     ) {
       setTopResults(results.alternatives);
+      setSelectedResultIndex(0); // Скидаємо на перший при зміні клейковини
       setPercentages(results.alternatives[0].percentages);
       setMixData(results.alternatives[0].mixData);
     } else {
@@ -513,7 +525,7 @@ const Calculator = ({ selectedPits, onBack, allPits, onPitSelect }) => {
         </button>
         <h2>LAB Calc</h2>
         <button onClick={toggleMode} className={styles.modeBtn}>
-          {isAutoMode ? "🤖" : "✋"}
+          {isAutoMode ? "🤖 AUTO" : "✋ HAND"}
         </button>
       </div>
 
@@ -563,17 +575,39 @@ const Calculator = ({ selectedPits, onBack, allPits, onPitSelect }) => {
               </div>
             )}
           </div>
-
-          {/* Результат суміші справа */}
-          {/* {selectedPits.length > 1 && (
-            <div className={styles.mixResult}>
-              W = {mixData.W || 0}%<br />
-              ЧП = {mixData.ЧП || 0}с<br />
-              Kл = {mixData.Kл || 0}% - {mixData.ВДК || 0}од.
-              <br />m = {mixData.m || 0}т
-            </div>
-          )} */}
         </div>
+
+        {isAutoMode && selectedPits.length > 2 && (
+          <div className={styles.filtersRow}>
+            <div className={styles.componentFilter}>
+              <label>Компоненти:</label>
+              <select
+                value={componentFilter}
+                onChange={(e) => setComponentFilter(e.target.value)}
+                className={styles.filterSelect}
+              >
+                <option value="best">Найкращий</option>
+                <option value="2-comp">2-компонентні</option>
+                <option value="3-comp">3-компонентні</option>
+                {selectedPits.length > 3 && (
+                  <option value="multi-comp">Багато-компонентні</option>
+                )}
+              </select>
+            </div>
+
+            <div className={styles.resultsFilter}>
+              <label>Показати:</label>
+              <select
+                value={showTopResults ? "top10" : "best"}
+                onChange={(e) => setShowTopResults(e.target.value === "top10")}
+                className={styles.filterSelect}
+              >
+                <option value="best">Найкращий варіант</option>
+                <option value="top10">Топ 10 варіантів</option>
+              </select>
+            </div>
+          </div>
+        )}
 
         <div className={styles.mixInfo}>
           <div className={styles.mixGrid}>
@@ -600,37 +634,7 @@ const Calculator = ({ selectedPits, onBack, allPits, onPitSelect }) => {
           </div>
         </div>
         {/* Фільтри для автоматичного режиму */}
-        {isAutoMode && selectedPits.length > 2 && (
-          <div className={styles.filtersRow}>
-            <div className={styles.componentFilter}>
-              <label>Компоненти:</label>
-              <select
-                value={componentFilter}
-                onChange={(e) => setComponentFilter(e.target.value)}
-                className={styles.filterSelect}
-              >
-                <option value="best">Найкращий</option>
-                <option value="2-comp">2-компонентні</option>
-                <option value="3-comp">3-компонентні</option>
-                {selectedPits.length > 3 && (
-                  <option value="multi-comp">Багато-компонентні</option>
-                )}
-              </select>
-            </div>
 
-            <div className={styles.resultsFilter}>
-              <label>Показати:</label>
-              <select
-                value={showTopResults ? "top5" : "best"}
-                onChange={(e) => setShowTopResults(e.target.value === "top5")}
-                className={styles.filterSelect}
-              >
-                <option value="best">Найкращий варіант</option>
-                <option value="top5">Топ 5 варіантів</option>
-              </select>
-            </div>
-          </div>
-        )}
         {/* Рядки для кожної вибраної ями */}
         {selectedPits
           .filter((pit) => (percentages[pit.id] || 0) > 0)
@@ -674,19 +678,20 @@ const Calculator = ({ selectedPits, onBack, allPits, onPitSelect }) => {
           ))}
       </div>
 
-      {/* Топ 5 результатів */}
+      {/* Топ 10 результатів */}
       {isAutoMode && showTopResults && topResults.length > 0 && (
         <div className={styles.topResultsContainer}>
           <h3 className={styles.topResultsTitle}>
-            Топ {topResults.length} варіантів:
+            Топ {Math.min(topResults.length, 10)} варіантів:
           </h3>
           {topResults.map((result, index) => (
             <div
               key={index}
               className={`${styles.topResultItem} ${
-                index === 0 ? styles.selectedResult : ""
+                index === selectedResultIndex ? styles.selectedResult : ""
               }`}
               onClick={() => {
+                setSelectedResultIndex(index);
                 setPercentages(result.percentages);
                 setMixData(result.mixData);
               }}
@@ -705,7 +710,7 @@ const Calculator = ({ selectedPits, onBack, allPits, onPitSelect }) => {
                 <div className={styles.resultPercentages}>
                   {Object.entries(result.percentages)
                     .filter(([_, perc]) => perc > 0)
-                    .map(([pitId, perc]) => `${pitId}:${perc}%`)
+                    .map(([pitId, perc]) => `${pitId} : ${perc}%`)
                     .join(", ")}
                 </div>
               </div>
@@ -714,20 +719,6 @@ const Calculator = ({ selectedPits, onBack, allPits, onPitSelect }) => {
         </div>
       )}
 
-      {/* Блок результату суміші (тільки для 1 ями) */}
-
-      {/* <div className={styles.mixDisplay}>
-        <div className={styles.mixInfo}>
-          <div>W = {mixData.W || 0}%</div>
-          <div>ЧП = {mixData.ЧП || 0}с</div>
-          <div>
-            Kл = {mixData.Kл || 0}% - {mixData.ВДК || 0}од.
-          </div>
-          <div>m = {mixData.m || 0}т</div>
-        </div>
-      </div> */}
-
-      {/* Сітка всіх ям */}
       <div className={styles.pitsGrid}>
         {allPits.map((pit) => {
           const isSelected = selectedPits.some((p) => p.id === pit.id);

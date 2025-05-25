@@ -1,5 +1,6 @@
 {
     "name": "lab-calc-app",
+    "homepage": "https://mstartsev.github.io/LABCalc/",
     "version": "1.0.0",
     "description": "Калькулятор суміші зерна для лабораторії",
     "private": true,
@@ -7,6 +8,8 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
+        "predeploy": "npm run build",
+        "deploy": "npm run build && npm run deploy-manual",
         "preview": "vite preview",
         "lint": "eslint src --ext js,jsx",
         "lint:fix": "eslint src --ext js,jsx --fix"

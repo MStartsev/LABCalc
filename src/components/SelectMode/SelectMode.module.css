@@ -13,6 +13,8 @@
 }
 
 .header h2 {
+  display: inline-block;
+  width: 192px;
   margin: 0;
   font-size: var(--font-size-xxl);
   font-weight: 600;

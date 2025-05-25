@@ -14,9 +14,9 @@ const PitCard = ({ pit, isSelected, onSelect, onEdit, mode = "view" }) => {
     return "var(--color-empty)";
   };
 
-  const formatValue = (value, unit = "") => {
-    if (value === null || value === undefined || value === "") return "-";
-    return `${value}${unit}`;
+  const formatValue = (text, value, unit = "") => {
+    if (value === null || value === undefined || value === "") return "";
+    return `${text} ${value}${unit}`;
   };
 
   const handleClick = () => {
@@ -31,18 +31,12 @@ const PitCard = ({ pit, isSelected, onSelect, onEdit, mode = "view" }) => {
     }
   };
 
-  const handleCheckboxChange = (e) => {
-    e.stopPropagation();
-    // Checkbox тільки для заповнених ям
-    if (pit.W && pit.Kл && pit.силос !== null) {
-      onSelect(pit);
-    }
-  };
-
   return (
     <div
       className={`${styles.pitCard} ${isSelected ? styles.selected : ""} ${
-        !pit.W || !pit.Kл || pit.силос === null ? styles.empty : ""
+        (!pit.W || !pit.Kл || pit.силос === null) && mode === "view"
+          ? styles.empty
+          : ""
       }`}
       style={{ backgroundColor: getPitColor() }}
       onClick={handleClick}
@@ -54,7 +48,13 @@ const PitCard = ({ pit, isSelected, onSelect, onEdit, mode = "view" }) => {
           <input
             type="checkbox"
             checked={isSelected}
-            onChange={handleCheckboxChange}
+            onChange={() => {}} // Порожня функція
+            onClick={(e) => {
+              e.stopPropagation(); // Зупиняємо тільки тут
+              if (pit.W && pit.Kл && pit.силос !== null) {
+                onSelect(pit);
+              }
+            }}
             disabled={!pit.W || !pit.Kл || pit.силос === null}
             className={styles.checkbox}
           />
@@ -62,12 +62,13 @@ const PitCard = ({ pit, isSelected, onSelect, onEdit, mode = "view" }) => {
       </div>
 
       <div className={styles.pitContent}>
-        <div className={styles.pitRow}>W = {formatValue(pit.W, "%")}</div>
-        <div className={styles.pitRow}>ЧП = {formatValue(pit.ЧП, "с")}</div>
+        <div className={styles.pitRow}>{formatValue("W = ", pit.W, "%")}</div>
+        <div className={styles.pitRow}>{formatValue("ЧП = ", pit.ЧП, "с")}</div>
         <div className={styles.pitRow}>
-          Kл = {formatValue(pit.Kл, "%")} - {formatValue(pit.ВДК, "од.")}
+          {formatValue("Kл = ", pit.Kл, "%")} -{" "}
+          {formatValue("", pit.ВДК, "од.")}
         </div>
-        <div className={styles.pitRow}>m = {formatValue(pit.m, "т")}</div>
+        <div className={styles.pitRow}>{formatValue("m = ", pit.m, "т")}</div>
       </div>
 
       {pit.силос && <div className={styles.pitCorner}>{pit.силос}с</div>}

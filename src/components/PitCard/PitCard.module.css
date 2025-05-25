@@ -77,7 +77,7 @@
   position: absolute;
   bottom: var(--spacing-sm);
   right: var(--spacing-sm);
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-xxl);
   color: var(--color-text-light);
   font-weight: 500;
 }
@@ -90,7 +90,7 @@
   }
 
   .pitNumber {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-xl);
   }
 
   .pitRow {
