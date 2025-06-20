@@ -153,7 +153,7 @@ const EditModal = ({ pit, isOpen, onClose, onSave }) => {
           <div className={styles.field}>
             <label>дата</label>
             <input
-              type="text"
+              type="date"
               value={formData.дата || ""}
               onChange={(e) => handleInputChange("дата", e.target.value)}
               className={styles.input}
